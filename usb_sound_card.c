@@ -775,10 +775,6 @@ int main(void) {
     multicore_launch_core1(core1_main);
     #endif
 
-    gpio_init(0);
-    gpio_set_dir(0, GPIO_OUT);
-    gpio_put(0, 1);
-
     usb_sound_card_init();
 
     printf("HAHA %04x %04x %04x %04x\n", MIN_VOLUME, DEFAULT_VOLUME, MAX_VOLUME, VOLUME_RESOLUTION);
