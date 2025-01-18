@@ -1,0 +1,9 @@
+[submodule "lib/pico-sdk"]
+	path = lib/pico-sdk
+	url = https://github.com/raspberrypi/pico-sdk.git
+[submodule "lib/pico-i2s-pio"]
+	path = lib/pico-i2s-pio
+	url = https://github.com/BambooMaster/pico-i2s-pio.git
+[submodule "lib/pico-extras"]
+	path = lib/pico-extras
+	url = https://github.com/BambooMaster/pico-extras.git
