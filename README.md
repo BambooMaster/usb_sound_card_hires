@@ -8,5 +8,13 @@ pico-sdkは2.1.0を使っています。
 # i2s
 https://github.com/BambooMaster/pico-i2s-pio.git を使っています。
 
+# i2sのピン
+|name|pin|
+|----|---|
+|DATA|GPIO18|
+|LRCLK|GPIO19|
+|BCLK|GPIO20|
+|MCLK|GPIO21|
+
 # 対応機種
 Windows11とAndroid(Pixel6a Android1５)で動作確認をしています。
