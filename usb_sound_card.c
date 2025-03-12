@@ -745,8 +745,13 @@ void usb_sound_card_init() {
 }
 
 int main(void) {
+    #ifndef I2S_LOW_JITTER
     set_sys_clock_khz(192000, true);
-
+    #else
+    //set_sys_clock_48mhz();
+    set_sys_clock_khz(48000, true);
+    clock_configure_undivided(clk_peri, 0, CLOCKS_CLK_SYS_CTRL_AUXSRC_VALUE_CLKSRC_PLL_USB, USB_CLK_HZ);
+    #endif
     stdout_uart_init();
 
     //シリアルナンバーを取得
