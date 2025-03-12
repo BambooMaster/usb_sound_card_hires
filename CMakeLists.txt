@@ -16,7 +16,7 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 
 cmake_minimum_required(VERSION 3.12)
 
-set(PICO_SDK_PATH ${CMAKE_SOURCE_DIR}/lib/pico-sdk)
+#set(PICO_SDK_PATH ${CMAKE_SOURCE_DIR}/lib/pico-sdk)
 set(PICO_EXTRAS_PATH ${CMAKE_SOURCE_DIR}/lib/pico-extras)
 
 # Pull in PICO SDK (must be before project)
