@@ -9,6 +9,7 @@
 #include "pico/stdlib.h"
 #include "pico/usb_device.h"
 #include "pico/multicore.h"
+#include "pico/unique_id.h"
 #include "hardware/clocks.h"
 #include "lufa/AudioClassCommon.h"
 #include "i2s.h"
@@ -745,13 +746,9 @@ void usb_sound_card_init() {
 }
 
 int main(void) {
-    #ifndef I2S_LOW_JITTER
     set_sys_clock_khz(192000, true);
-    #else
-    //set_sys_clock_48mhz();
-    set_sys_clock_khz(48000, true);
-    clock_configure_undivided(clk_peri, 0, CLOCKS_CLK_SYS_CTRL_AUXSRC_VALUE_CLKSRC_PLL_USB, USB_CLK_HZ);
-    #endif
+    //uartの設定よりも前に呼び出す
+    i2s_mclk_set_config(pio0, 0, false, true);
     stdout_uart_init();
 
     //シリアルナンバーを取得
@@ -773,13 +770,9 @@ int main(void) {
 #endif
 
     //i2s init
+    i2s_mclk_set_pin(2, 3);
     i2s_mclk_init(audio_state.freq);
-    i2s_mclk_dma_init();
-
-    #ifdef I2S_USE_CORE1
-    multicore_launch_core1(core1_main);
-    #endif
-
+    
     usb_sound_card_init();
 
     printf("HAHA %04x %04x %04x %04x\n", MIN_VOLUME, DEFAULT_VOLUME, MAX_VOLUME, VOLUME_RESOLUTION);
