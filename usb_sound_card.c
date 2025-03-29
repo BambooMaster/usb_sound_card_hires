@@ -10,6 +10,7 @@
 #include "pico/usb_device.h"
 #include "pico/multicore.h"
 #include "pico/unique_id.h"
+#include "hardware/dma.h"
 #include "hardware/clocks.h"
 #include "lufa/AudioClassCommon.h"
 #include "i2s.h"
@@ -746,7 +747,7 @@ void usb_sound_card_init() {
 int main(void) {
     set_sys_clock_khz(192000, true);
     //uartの設定よりも前に呼び出す
-    i2s_mclk_set_config(pio0, 0, false, true, false);
+    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), false, true, false);
     stdout_uart_init();
 
     //シリアルナンバーを取得
