@@ -64,6 +64,7 @@ target_link_libraries(usb_sound_card_hires
         usb_device
         pico_unique_id
         pico_multicore
+        hardware_dma
         hardware_clocks
         pico-i2s-pio
 )

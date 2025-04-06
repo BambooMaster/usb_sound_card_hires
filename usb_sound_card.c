@@ -577,8 +577,8 @@ static void _audio_reconfigure() {
         case 48000:
         case 88200:
         case 96000:
-        case 176400:
-        case 192000:
+//        case 176400:
+//        case 192000:
             break;
         default:
             audio_state.freq = 44100;
