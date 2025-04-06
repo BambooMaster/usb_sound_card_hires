@@ -4,6 +4,15 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+/**
+ * @file usb_sound_card.c
+ * @author BambooMaster (https://misskey.hakoniwa-project.com/@BambooMaster)
+ * @brief usb_sound_card_hires
+ * @version 0.3
+ * @date 2025-04-06
+ * 
+ */
+
 #include <stdio.h>
 
 #include "pico/stdlib.h"
