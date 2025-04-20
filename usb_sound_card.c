@@ -778,7 +778,7 @@ int main(void) {
 #endif
 
     //i2s init
-    i2s_mclk_set_pin(2, 3);
+    i2s_mclk_set_pin(18, 19);
     i2s_mclk_init(audio_state.freq);
     
     usb_sound_card_init();

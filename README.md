@@ -24,9 +24,9 @@ cmke .. && make -j4
 
 |name|pin|
 |----|---|
-|DATA|GPIO2|
-|LRCLK|GPIO3|
-|BCLK|GPIO4|
+|DATA|GPIO18|
+|LRCLK|GPIO19|
+|BCLK|GPIO20|
 |MCLK|GPIO21|
 
 ## 対応機種
