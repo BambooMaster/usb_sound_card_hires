@@ -8,8 +8,8 @@
  * @file usb_sound_card.c
  * @author BambooMaster (https://misskey.hakoniwa-project.com/@BambooMaster)
  * @brief usb_sound_card_hires
- * @version 0.4
- * @date 2025-04-06
+ * @version 0.4-interpolation
+ * @date 2025-04-22
  * 
  */
 
@@ -23,6 +23,8 @@
 #include "hardware/clocks.h"
 #include "lufa/AudioClassCommon.h"
 #include "i2s.h"
+
+#include "fir.h"
 
 // todo forget why this is using core 1 for sound: presumably not necessary
 // todo noop when muted
@@ -584,7 +586,12 @@ static void _audio_reconfigure() {
             audio_state.freq = 44100;
     }
     // todo hack overwriting const
-    i2s_mclk_change_clock(audio_state.freq);
+    if (audio_state.freq % 48000 == 0){
+        i2s_mclk_change_clock(384000);
+    }
+    else{
+        i2s_mclk_change_clock(352800);
+    }
 }
 
 static void audio_set_volume(int16_t volume) {
@@ -756,7 +763,8 @@ void usb_sound_card_init() {
 int main(void) {
     set_sys_clock_khz(192000, true);
     //uartの設定よりも前に呼び出す
-    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), false, true, false, false);
+    set_core1_main_function(core1_main);
+    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), true, true, true, false);
     stdout_uart_init();
 
     //シリアルナンバーを取得
@@ -779,11 +787,17 @@ int main(void) {
 
     //i2s init
     i2s_mclk_set_pin(18, 19);
-    i2s_mclk_init(audio_state.freq);
+    i2s_mclk_init(352800);
+
+    //dsp init
+    dsp_init();
     
     usb_sound_card_init();
 
     printf("HAHA %04x %04x %04x %04x\n", MIN_VOLUME, DEFAULT_VOLUME, MAX_VOLUME, VOLUME_RESOLUTION);
     // MSD is irq driven
-    while (1) __wfi();
+    //while (1) __wfi();
+    while (1){
+        core0_task();
+    }
 }

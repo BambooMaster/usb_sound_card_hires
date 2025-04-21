@@ -12,12 +12,14 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico CACHE STRING "Board type")
+set(PICO_BOARD pico2 CACHE STRING "Board type")
 
 cmake_minimum_required(VERSION 3.12)
 
 #set(PICO_SDK_PATH ${CMAKE_SOURCE_DIR}/lib/pico-sdk)
 set(PICO_EXTRAS_PATH ${CMAKE_SOURCE_DIR}/lib/pico-extras)
+set(CMSISCORE ${CMAKE_CURRENT_SOURCE_DIR}/lib/CMSIS_5/CMSIS/Core)
+add_compile_definitions(__ARM_FEATURE_DSP=1)
 
 # Pull in PICO SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -34,6 +36,7 @@ pico_sdk_init()
 
 add_executable(usb_sound_card_hires
         usb_sound_card.c
+        fir.c
         )
 
 # Modify the below lines to enable/disable output over UART/USB
@@ -58,6 +61,7 @@ target_compile_definitions(usb_sound_card_hires PRIVATE
 )
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/lib/pico-i2s-pio)
+add_subdirectory(${CMAKE_SOURCE_DIR}/lib/CMSIS-DSP)
 
 target_link_libraries(usb_sound_card_hires
         pico_stdlib
@@ -67,5 +71,6 @@ target_link_libraries(usb_sound_card_hires
         hardware_dma
         hardware_clocks
         pico-i2s-pio
+        CMSISDSP
 )
 pico_add_extra_outputs(usb_sound_card_hires)
