@@ -149,15 +149,15 @@ void __not_in_flash_func(core1_main)(void){
     arm_fir_interpolate_init_f32(&s_l_1st_96, 2, FIR_1ST_140DB_96_TAPS, fir_1st_140db_96, state_l_1st_96, FIR_1ST_96_BLOCK_SIZE);
     arm_fir_interpolate_init_f32(&s_l_2nd_96, 2, FIR_2ND_140DB_96_TAPS, fir_2nd_140db_96, state_l_2nd_96, FIR_2ND_96_BLOCK_SIZE);
 
-    //gpio_init(15);
-    //gpio_set_dir(15, GPIO_OUT);
+    gpio_init(15);
+    gpio_set_dir(15, GPIO_OUT);
 
     while (1){
         static float32_t dsp_buff_l_1[49 * 8];
         static float32_t dsp_buff_l_2[49 * 8];
         static q31_t buff_l[49 * 8];
 
-        //gpio_put(15, 1);
+        gpio_put(15, 1);
         buf_length = i2s_get_buf_length();
 
         if (buf_length == 0){
@@ -221,12 +221,18 @@ void __not_in_flash_func(core1_main)(void){
         }
 
         //i2sバッファに格納
-        for (int i = 0, j = 0; i < sample; i++){
-            dma_buff[dma_use][j++] = buff_l[i];
-            dma_buff[dma_use][j++] = buff_r[i];
+        //gpio_put(15, 1);
+        for (int i = 0, j = 0; i < sample; i++) {
+            uint64_t left  = part1by1_32(buff_l[i]);
+            uint64_t right = part1by1_32(buff_r[i]);
+            
+            uint64_t merged = (left << 1) | right;
+    
+            dma_buff[dma_use][j++] = (uint32_t)(merged >> 32);     // 上位32bit
+            dma_buff[dma_use][j++] = (uint32_t)(merged & 0xFFFFFFFF); // 下位32bit
         }
         dma_sample[dma_use] = sample * 2;
-        //gpio_put(15, 0);
+        gpio_put(15, 0);
 
         dma_channel_wait_for_finish_blocking(dma_ch);
         dma_channel_transfer_from_buffer_now(dma_ch, dma_buff[dma_use], dma_sample[dma_use]);
