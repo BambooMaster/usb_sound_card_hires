@@ -36,12 +36,13 @@ cmke .. && make -j4
 ## i2s
 [pico-i2s-pio](https://github.com/BambooMaster/pico-i2s-pio.git)を使っています。RP2040/RP2350のシステムクロックをMCLKの整数倍に設定し、pioのフラクショナル分周を使わないlowジッタモードを搭載しています。
 
+### デフォルト
 |name|pin|
 |----|---|
 |DATA|GPIO18|
-|LRCLK|GPIO19|
-|BCLK|GPIO20|
-|MCLK|GPIO21|
+|LRCLK|GPIO20|
+|BCLK|GPIO21|
+|MCLK|GPIO22|
 
 ## AK449X EXDF
 BCK: 32fs
