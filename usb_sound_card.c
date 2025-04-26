@@ -761,10 +761,10 @@ void usb_sound_card_init() {
 }
 
 int main(void) {
-    set_sys_clock_khz(192000, true);
+    set_sys_clock_khz(150000, true);
     //uartの設定よりも前に呼び出す
     set_core1_main_function(core1_main);
-    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), true, true, true, false);
+    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), true, true, true, MODE_I2S);
     stdout_uart_init();
 
     //シリアルナンバーを取得
@@ -786,7 +786,7 @@ int main(void) {
 #endif
 
     //i2s init
-    i2s_mclk_set_pin(18, 19);
+    i2s_mclk_set_pin(18, 20, 22);
     i2s_mclk_init(352800);
 
     //dsp init
