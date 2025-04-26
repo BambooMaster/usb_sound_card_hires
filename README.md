@@ -43,5 +43,17 @@ cmke .. && make -j4
 |BCLK|GPIO20|
 |MCLK|GPIO21|
 
+## AK449X EXDF
+BCK: 32fs
+MCLK: 32fs (BCK)
+
+|name|pin|
+|----|---|
+|DOUTL|GPIO18|
+|DOUTR|GPIO19|
+|WCK|GPIO20|
+|BCK|GPIO21|
+|MCLK|GPIO22|
+
 ## 対応機種
 Windows11とAndroid(Pixel6a Android15)で動作確認をしています。
