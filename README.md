@@ -10,7 +10,7 @@ RP2350のDSPを使用したインターポレーション機能を実装して�
 - **88.2/96kHz**: **4倍**
 
 ### フィルタ特性 (44.1KHz)
-- Passband: **21kHz**
+- Passband: **20.5kHz**
 - Passband Ripple: **0.0002dB**
 - Stopband: **22.05kHz**
 - Stopband Attenuation: **-140dB**
