@@ -8,8 +8,8 @@
  * @file usb_sound_card.c
  * @author BambooMaster (https://misskey.hakoniwa-project.com/@BambooMaster)
  * @brief usb_sound_card_hires
- * @version 0.4
- * @date 2025-04-06
+ * @version 0.5
+ * @date 2025-05-05
  * 
  */
 
@@ -754,9 +754,9 @@ void usb_sound_card_init() {
 }
 
 int main(void) {
-    set_sys_clock_khz(192000, true);
+    set_sys_clock_khz(150000, true);
     //uartの設定よりも前に呼び出す
-    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), false, true, false, false);
+    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), false, CLOCK_MODE_LOW_JITTER, MODE_I2S);
     stdout_uart_init();
 
     //シリアルナンバーを取得
@@ -778,7 +778,7 @@ int main(void) {
 #endif
 
     //i2s init
-    i2s_mclk_set_pin(2, 3);
+    i2s_mclk_set_pin(18, 20, 22);
     i2s_mclk_init(audio_state.freq);
     
     usb_sound_card_init();
