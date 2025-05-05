@@ -756,7 +756,7 @@ void usb_sound_card_init() {
 int main(void) {
     set_sys_clock_khz(150000, true);
     //uartの設定よりも前に呼び出す
-    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), false, true, false, MODE_I2S);
+    i2s_mclk_set_config(pio0, 0, dma_claim_unused_channel(true), false, CLOCK_MODE_LOW_JITTER, MODE_I2S);
     stdout_uart_init();
 
     //シリアルナンバーを取得
