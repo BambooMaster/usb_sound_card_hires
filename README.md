@@ -3,7 +3,7 @@ Raspberry Pi Pico(RP2040, RP2350)を使ったマスタークロック付きのi2
 
 ## Interpolation 機能について
 RP2350のDSPを使用したインターポレーション機能を実装しています。
-本機能は `interpolation` ブランチで利用可能です。
+本機能は[interpolation](https://github.com/BambooMaster/usb_sound_card_hires/tree/interpolation)ブランチで利用可能です。
 
 ### インターポレーション倍率
 - **44.1/48kHz**: **8倍**
