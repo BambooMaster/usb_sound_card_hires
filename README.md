@@ -8,7 +8,7 @@ RP2350のDSPを使用したインターポレーション機能を実装して�
 ## build
 ### vscodeの拡張機能を使う場合
 ```
-https://github.com/BambooMaster/usb_sound_card_hires.git
+git clone https://github.com/BambooMaster/usb_sound_card_hires.git
 cd usb_sound_card_hires
 git submodule update --init
 ```
@@ -16,7 +16,7 @@ git submodule update --init
 
 ### vscodeの拡張機能を使わない場合
 ```
-https://github.com/BambooMaster/usb_sound_card_hires.git
+git clone https://github.com/BambooMaster/usb_sound_card_hires.git
 cd usb_sound_card_hires
 git submodule update --init
 mkdir build && cd build
