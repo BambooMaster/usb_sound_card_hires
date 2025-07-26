@@ -99,7 +99,7 @@ struct audio_device_config {
         USB_Audio_StdDescriptor_Interface_AS_t streaming;
         struct __packed {
             USB_Audio_StdDescriptor_Format_t core;
-            USB_Audio_SampleFreq_t freqs[4];
+            USB_Audio_SampleFreq_t freqs[2];
         } format;
     } as_audio_3;
     struct __packed {
@@ -356,9 +356,7 @@ static const struct audio_device_config audio_device_config = {
                         },
                         .freqs = {
                                 AUDIO_SAMPLE_FREQ(44100),
-                                AUDIO_SAMPLE_FREQ(48000),
-                                AUDIO_SAMPLE_FREQ(88200),
-                                AUDIO_SAMPLE_FREQ(96000)
+                                AUDIO_SAMPLE_FREQ(48000)
                         },
                 },
         },
