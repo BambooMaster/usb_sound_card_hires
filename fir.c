@@ -42,8 +42,8 @@
 
 static int doorbell_dsp;
 static uint32_t sample_r;
-static q31_t buff_r[49 * 8];
-static float32_t dsp_buff_r_1[49 * 8];
+static q31_t buff_r[(48 + 8) * 8];
+static float32_t dsp_buff_r_1[(48 + 8) * 8];
 
 //48*8
 static arm_fir_interpolate_instance_f32 s_r_1st;
@@ -73,9 +73,9 @@ void dsp_init(void){
 
 void __not_in_flash_func(core0_task)(void){
     if (multicore_doorbell_is_set_current_core(doorbell_dsp)){
-        float32_t dsp_buff_r_2[49 * 8];
+        float32_t dsp_buff_r_2[(48 + 8) * 8];
         #if 1
-        if (sample_r <= 49){
+        if (sample_r <= (48 + 8)){
             arm_scale_f32(dsp_buff_r_1, 8.0, dsp_buff_r_1, sample_r);
 
             arm_fir_interpolate_f32(&s_r_1st, dsp_buff_r_1, dsp_buff_r_2, sample_r);
@@ -93,7 +93,7 @@ void __not_in_flash_func(core0_task)(void){
         }
         arm_float_to_q31(dsp_buff_r_1, buff_r, sample_r);
         #else
-        if (sample_r <= 49){
+        if (sample_r <= (48 + 8)){
             for (int i = 0, j = 0; i < sample_r; i++){
                 dsp_buff_r_2[j++] = dsp_buff_r_1[i];
                 dsp_buff_r_2[j++] = dsp_buff_r_1[i];
@@ -128,7 +128,7 @@ void __not_in_flash_func(core1_main)(void){
     int32_t mute_buff[96 * 2] = {0};
     uint32_t mute_len = sizeof(mute_buff) / sizeof(int32_t);
     int8_t buf_length;
-    int32_t dma_buff[2][49 * 8 * 2];
+    int32_t dma_buff[2][(48 + 8) * 8 * 2];
     uint8_t dma_use = 0;
     int dma_ch = 0;
     uint32_t previous_length = 44 * 2;
@@ -153,9 +153,9 @@ void __not_in_flash_func(core1_main)(void){
     //gpio_set_dir(15, GPIO_OUT);
 
     while (1){
-        static float32_t dsp_buff_l_1[49 * 8];
-        static float32_t dsp_buff_l_2[49 * 8];
-        static q31_t buff_l[49 * 8];
+        static float32_t dsp_buff_l_1[(48 + 8) * 8];
+        static float32_t dsp_buff_l_2[(48 + 8) * 8];
+        static q31_t buff_l[(48 + 8) * 8];
 
         //gpio_put(15, 1);
         buf_length = i2s_get_buf_length();
@@ -197,7 +197,7 @@ void __not_in_flash_func(core1_main)(void){
         //core0_task開始
         multicore_doorbell_set_other_core(doorbell_dsp);
 
-        if (sample <= 49){
+        if (sample <= (48 + 8)){
             arm_scale_f32(dsp_buff_l_1, 8.0, dsp_buff_l_1, sample);
 
             arm_fir_interpolate_f32(&s_l_1st, dsp_buff_l_1, dsp_buff_l_2, sample);

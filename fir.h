@@ -37,12 +37,12 @@
 
 #define FIR_1ST_140DB_TAPS 402
 #define FIR_2ND_140DB_TAPS 56
-#define FIR_1ST_BLOCK_SIZE (48 + 1)
+#define FIR_1ST_BLOCK_SIZE (48 + 8)
 #define FIR_2ND_BLOCK_SIZE (FIR_1ST_BLOCK_SIZE * 2)
 
 #define FIR_1ST_140DB_96_TAPS 208
 #define FIR_2ND_140DB_96_TAPS 26
-#define FIR_1ST_96_BLOCK_SIZE (96 + 1)
+#define FIR_1ST_96_BLOCK_SIZE ((48 + 8) * 2)
 #define FIR_2ND_96_BLOCK_SIZE (FIR_1ST_96_BLOCK_SIZE * 2)
 
 static const float fir_1st_140db[FIR_1ST_140DB_TAPS] = {
