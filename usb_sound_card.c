@@ -460,7 +460,7 @@ static void _as_sync_packet(struct usb_endpoint *ep) {
 
     // todo lie thru our teeth for now
     uint8_t length =  i2s_get_buf_length();
-    int32_t adjust = (((I2S_BUF_DEPTH / 2) - (int32_t)length) * (int32_t)audio_state.freq / I2S_BUF_DEPTH) >> 7;
+    int32_t adjust = ((I2S_TARGET_LEVEL - (int32_t)length) * (int32_t)audio_state.freq / I2S_BUF_DEPTH) >> 7;
     uint feedback = (((int32_t)audio_state.freq + adjust) << 14u) / 1000u;
 
     //フィードバックの最大値,最小値
